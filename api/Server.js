@@ -57,10 +57,15 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-//tool untuk pelanggan lama
-//app.post('/lama/bras', Controllers.Root.CekToken, Controllers.Layanan.BuatLayananBras);
+app.get('/', Controllers.Root.Index);
+app.post('/root', Controllers.Root.CekToken, Controllers.Root.postRoot);
+app.post('/root/login', Controllers.Root.Login);
 
+app.post('/pelanggan', Controllers.Root.CekToken, Controllers.Pelanggan.postPelanggan);
+app.get('/pelanggan/:id', Controllers.Root.CekToken, Controllers.Pelanggan.getProfil);
 
+app.post('/layanan', Controllers.Root.CekToken, Controllers.Layanan.postLayanan);
+app.post('/layanan/produk', Controllers.Root.CekToken, Controllers.Layanan.postProduk);
 
 function normalizePort(val) {
     var port = parseInt(val, 10);
