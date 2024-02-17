@@ -24,7 +24,7 @@ fs.readdirSync(stages_path).forEach(function (file) {
 });
 
 
-const stage = new Stage([]);
+const stage = new Stage([Stages.onuInfo]);
 const bot = new Telegraf(process.env.bot);
 bot.use(session());
 bot.use(stage.middleware());
@@ -82,9 +82,15 @@ bot.use(stage.middleware());
 
 
 //test
-bot.command('/a', async (ctx) => {
+bot.command('/onuinfo', async (ctx) => {
     try {
-       console.log(ctx.update.message.from)
+        if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080') {
+           ctx.scene.enter('onuInfo')
+        } else {
+            ctx.reply('<b>Hanya Bisa diakses Dari Group!</b>', {
+                parse_mode: "HTML"
+            });
+        }
 
     } catch (err) {
         console.log(err)
