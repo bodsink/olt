@@ -1,0 +1,14 @@
+{
+  "name": "tele",
+  "version": "1.0.0",
+  "description": "",
+  "main": "nodemon Telegram.js",
+  "scripts": {
+    "start": "nodemon Telegram.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7"
+  }
+}
