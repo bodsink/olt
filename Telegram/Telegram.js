@@ -24,7 +24,7 @@ fs.readdirSync(stages_path).forEach(function (file) {
 });
 
 
-const stage = new Stage([Stages.onuInfo]);
+const stage = new Stage([Stages.onuInfo, Stages.addPaket]);
 const bot = new Telegraf(process.env.bot);
 bot.use(session());
 bot.use(stage.middleware());
@@ -32,53 +32,21 @@ bot.use(stage.middleware());
 
 
 
-// bot.command('/onuinfo', async (ctx) => {
-//     try {
-//         if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080') {
-//             ctx.scene.enter('onuInfo')
-//         } else {
-//             ctx.reply('<b>Hanya Bisa diakses Dari Group!</b>', {
-//                 parse_mode: "HTML"
-//             });
-//         }
+bot.command('/addpaket', async (ctx) => {
+    try {
+        if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080') {
+            ctx.scene.enter('addPaket')
+        } else {
+            ctx.reply('<b>Hanya Bisa diakses Dari Group!</b>', {
+                parse_mode: "HTML"
+            });
+        }
 
-//     } catch (err) {
-//         console.log(err)
-//     }
+    } catch (err) {
+        console.log(err)
+    }
 
-// });
-
-// bot.command('/onuwan', async (ctx) => {
-//     try {
-//         if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080') {
-//             ctx.scene.enter('onuWan')
-//         } else {
-//             ctx.reply('<b>Hanya Bisa diakses Dari Group!</b>', {
-//                 parse_mode: "HTML"
-//             });
-//         }
-
-//     } catch (err) {
-//         console.log(err)
-//     }
-
-// });
-
-// bot.command('/stbreg', async (ctx) => {
-//     try {
-//         if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080') {
-//             ctx.scene.enter('stbReg')
-//         } else {
-//             ctx.reply('<b>Hanya Bisa diakses Dari Group!</b>', {
-//                 parse_mode: "HTML"
-//             });
-//         }
-
-//     } catch (err) {
-//         console.log(err)
-//     }
-
-// });
+});
 
 
 //test

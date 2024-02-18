@@ -66,6 +66,19 @@ app.get('/pelanggan/:id', Controllers.Root.CekToken, Controllers.Pelanggan.getPr
 
 app.post('/layanan', Controllers.Root.CekToken, Controllers.Layanan.postLayanan);
 app.post('/layanan/produk', Controllers.Root.CekToken, Controllers.Layanan.postProduk);
+app.post('/layanan/bras', Controllers.Root.CekToken, Controllers.Layanan.postBras);
+
+app.post('/olt', Controllers.Root.CekToken, Controllers.Infra.postOlt);
+
+
+//olt
+//app.get('/olt/:hostname/:sn', Controllers.Root.CekToken, Controllers.Olt.cekSN);
+
+app.post('/olt/:hostname/onu', Controllers.Root.CekToken, Controllers.Olt.AddOnu);
+app.get('/olt/:hostname/onu/uncfg/:id', Controllers.Root.CekToken, Controllers.Olt.Uncfg);
+app.get('/olt/:hostname/onu/:id', Controllers.Root.CekToken, Controllers.Olt.cariSN);
+
+//app.post('/olt/:hostname/gpon/profil', Controllers.Root.CekToken, Controllers.Olt.ProfilOnu);
 
 function normalizePort(val) {
     var port = parseInt(val, 10);

@@ -5,11 +5,12 @@ const Schema = mongoose.Schema;
 
 const ProdukSchema = new Schema({
     root: String,
+    ret: String,
     uid: String,
     kode: String,
     nama: String,
     upload: Number,
-    download:Number,
+    download: Number,
     harga: Number
 
 }, {
@@ -22,16 +23,18 @@ const LayananSchema = new Schema({
     root: String,
     uid: String,
     cid: String,
-    tv: Boolean,
+    iptv: Boolean,
     paket: String,
-    stb:String,
+    stb: String,
     onu: String,
-    onuIndex:Number,
-    pon:Number,
-    gpon:String,
-    olt:String,
+    onuIndex: Number,
+    pon: Number,
+    gpon: String,
+    olt: String,
     fp: String,
     pelanggan: String,
+    alamat:String,
+    tikor:String,
     status: Boolean,
 
 }, {
@@ -43,18 +46,40 @@ const LayananSchema = new Schema({
 
 const BrasSchema = new Schema({
     root: String,
+    ret: String,
     uid: String,
     pelanggan: String,
-    username: String,
+    layanan:String,
+    name: String,
     password: String,
-    grup: String,
-    status: Boolean
+    comment: String,
+    group: String,
+    disabled: Boolean
 
 }, {
     collection: 'Layanan.Bras',
     versionKey: false,
     timestamps: true
 });
+
+
+const pasangBaruSchema = new Schema({
+    root: String,
+    uid: String,
+    antri: String,
+    perangkat:{
+        onu:String,
+
+    }
+    
+
+}, {
+    collection: 'Layanan',
+    versionKey: false,
+    timestamps: true
+});
+
+
 
 
 const Produk = mongoose.model('Layanan.Produk', ProdukSchema);

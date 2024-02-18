@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const PelangganSchema = new Schema({
     root: String,
     uid: String,
-    id: String,
+    nik: String,
     cid: String,
     nama: String,
     ponsel: String,
@@ -18,9 +18,6 @@ const PelangganSchema = new Schema({
     versionKey: false,
     timestamps: true
 });
-
-
-
 
 const Pelanggan = mongoose.model('Pelanggan', PelangganSchema);
 module.exports = {

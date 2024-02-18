@@ -71,8 +71,6 @@ exports.postPelanggan = async function (req, res, next) {
             }
         }
 
-        let pelanggan;
-
         let cekDuplikatNama = await Pelanggan.findOne({
             root: req.user,
             nama: Karakter(req.body.nama)
@@ -124,7 +122,6 @@ exports.postPelanggan = async function (req, res, next) {
     }
 }
 
-
 exports.getProfil = async function (req, res, next) {
     try {
       
@@ -137,6 +134,7 @@ exports.getProfil = async function (req, res, next) {
         if (NomorWhatsapp) {
             const cek = await Pelanggan.aggregate([{
                 $match: {
+                    root: req.user,
                     ponsel: NomorWhatsapp
                 }
             }, {
@@ -160,9 +158,9 @@ exports.getProfil = async function (req, res, next) {
             },{
                 $lookup: {
                     from: 'Layanan.Bras',
-                    localField: 'uid',
-                    foreignField: 'pelanggan',
-                    as: 'bras'
+                    localField: 'layanan.uid',
+                    foreignField: 'layanan',
+                    as: 'layanan.layanan'
                 }
             }]).then(data => data);
 
@@ -176,8 +174,7 @@ exports.getProfil = async function (req, res, next) {
                     return next(
                         createError(404, 'Layanan pelanggan an.'+ cek[0].nama  + ' tidak ditemukan, kemungkinan masih dalam antrian, pelanggan dari Mitra atau Lokasi di Pariangan!'));
                 }
-
-                
+   
                 return res.status(200).send({
                     data: cek
                 })
