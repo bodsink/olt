@@ -50,9 +50,23 @@ bot.command('/addpaket', async (ctx) => {
 
 
 //test
+bot.hears('test', async (ctx) => {
+    try {
+        console.log(ctx.chat)
+        ctx.reply(ctx.chat, {
+            parse_mode: "HTML"
+        });
+        
+
+    } catch (err) {
+        console.log(err)
+    }
+
+});
 bot.command('/onuinfo', async (ctx) => {
     try {
-        if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080') {
+        console.log(ctx.chat.id)
+        if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080' || ctx.chat.id == '351111110') {
            ctx.scene.enter('onuInfo')
         } else {
             ctx.reply('<b>Hanya Bisa diakses Dari Group!</b>', {
