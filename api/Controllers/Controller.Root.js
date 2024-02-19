@@ -25,7 +25,10 @@ const { Root } = require('../Models/Model.Root');
 
 exports.Index = async function (req, res, next) {
     try {
-        return res.status(200).send('KejoraNet | Internet Masuk Nagari');
+        return res.status(200).send({
+            data: 'api bersama ;)',
+            pesan: 'wkwkwkwkwkwwkwkw'
+        })
         
     }catch (error) {
         console.log(error)
