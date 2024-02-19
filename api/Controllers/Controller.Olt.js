@@ -351,8 +351,8 @@ exports.AddOnu = async function (req, res, next) {
 
         if (req.body.iptv == true) {
             iptv = true;
-            mncGemport = '\n gemport 3 tcont 1 ' + '\n gemport 3 traffic-limit downstream DW_IPTV' + '\n service-port 3 vport 3 user-vlan 405 vlan 405'
-            mncService = '\n service 3 gemport 3 vlan 405'
+            mncGemport = '\n gemport 3 tcont 1 ' + '\n gemport 3 traffic-limit downstream DW_IPTV' + '\n service-port 3 vport 3 user-vlan 405 vlan 405\n'
+            mncService = '\n service 3 gemport 3 vlan 405\n'
 
         } else {
             iptv = false
@@ -395,7 +395,8 @@ exports.AddOnu = async function (req, res, next) {
         const pon = c[0] + '/' + c[1] + '/' + c[2];
 
 
-        const ConfigPort = await Olt.Conn(req.params.hostname, 'show interface ' + pon);
+
+        const ConfigPort = await Olt.Conn(req.params.hostname, 'show interface ' + pon + '\n');
 
         const cariJumlahOnu = ConfigPort.search('registered onus is');
         const cariChannel = ConfigPort.search('Current channel num :');
@@ -405,8 +406,8 @@ exports.AddOnu = async function (req, res, next) {
 
 
 
-        let configOnu = '\n conf t \n interface ' + pon +
-            '\n onu ' + NomorUrutOnu + ' type HG6145F sn ' + SN + '\n !' +
+        let configOnu = '\n configure terminal  \n interface ' + pon +
+            '\n onu ' + NomorUrutOnu + ' type HG6145F sn ' + SN + '\n !\n' +
             '\n interface ' + ONU +
             '\n name ' + cekPelanggan.nama +
             '\n description ' + cekPelanggan.alamat +
@@ -417,18 +418,24 @@ exports.AddOnu = async function (req, res, next) {
             '\n gemport 2 traffic-limit downstream DW_' + req.body.paket +
             mncGemport +
             '\n service-port 1 vport 1 user-vlan 100 vlan 100' +
-            '\n service-port 2 vport 2 user-vlan 505 vlan 505 \n !' +
-            '\n pon-onu-mng ' + ONU +
+            '\n service-port 2 vport 2 user-vlan 505 vlan 505 \n !\n'
+
+        let configPon = 'pon-onu-mng ' + ONU +
             '\n service 1 gemport 1 vlan 100' +
             '\n service 2 gemport 2 vlan 505' +
             mncService +
             '\n vlan port veip_1 mode trunk' +
             '\n tr069-mgmt 1 state unlock' +
-            '\n tr069-mgmt 1 acs http://10..212.212.213:7547 validate basic username sumix password sumix \n ! \n'
+            '\n tr069-mgmt 1 acs http://10.212.212.213:7547 validate basic username sumix password sumix \n ! \n exit \n '
 
 
-        //console.log(configOnu)
-        const addOnu = await Olt.Conn(req.params.hostname, configOnu);
+        // console.log(configOnu)
+
+        const addOnu = await Olt.Conn(req.params.hostname, configOnu + configPon).then(data => data);
+
+
+        console.log(addOnu)
+
 
         await Olt.Clear(req.params.hostname).then(data => data);
         return res.status(200).send({
@@ -445,13 +452,6 @@ exports.AddOnu = async function (req, res, next) {
 
             }
         })
-
-
-
-
-
-
-
     } catch (error) {
         console.log(error)
         return next(

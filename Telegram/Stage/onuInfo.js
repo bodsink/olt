@@ -46,7 +46,7 @@ const onuInfo = new WizardScene(
                 });
 
                 let cekOnu = await API.SN(ctx.wizard.state.data.sn).then(data => data);
-                console.log(cekOnu)
+              
 
                 if (cekOnu.response) {
 

@@ -80,6 +80,11 @@ app.get('/olt/:hostname/onu/:id', Controllers.Root.CekToken, Controllers.Olt.car
 
 //app.post('/olt/:hostname/gpon/profil', Controllers.Root.CekToken, Controllers.Olt.ProfilOnu);
 
+
+//acs
+app.get('/acs/:id', Controllers.Root.CekToken, Controllers.Acs.CekSN);
+app.post('/acs/bras', Controllers.Root.CekToken, Controllers.Acs.WanPPPoE);
+
 function normalizePort(val) {
     var port = parseInt(val, 10);
     console.log('API Running on Port: ' + port)
