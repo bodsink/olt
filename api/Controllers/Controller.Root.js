@@ -26,8 +26,7 @@ const { Root } = require('../Models/Model.Root');
 exports.Index = async function (req, res, next) {
     try {
         return res.status(200).send({
-            data: 'api bersama ;)',
-            pesan: 'wkwkwkwkwkwwkwkw'
+            pesan: 'Welcome To Jungle 62811393073'
         })
         
     }catch (error) {

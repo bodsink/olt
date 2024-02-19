@@ -32,7 +32,6 @@ exports.postPelanggan = async function (req, res, next) {
 
 
        
-
         const cekNomor = req.body.ponsel;
         let NomorWhatsapp;
 
@@ -110,9 +109,6 @@ exports.postPelanggan = async function (req, res, next) {
             },
             pesan: "Pelanggan berhsail di simpan"
         })
-
-
-
 
 
     } catch (error) {

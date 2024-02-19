@@ -65,7 +65,7 @@ bot.hears('test', async (ctx) => {
 });
 bot.command('/onuinfo', async (ctx) => {
     try {
-        console.log(ctx.chat.id)
+
         if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080' || ctx.chat.id == '351111110') {
            ctx.scene.enter('onuInfo')
         } else {
