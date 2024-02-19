@@ -41,9 +41,7 @@ exports.cariSN = async function (req, res, next) {
 
         let cekOlt = await Olt.Conn(req.params.hostname, 'show gpon onu by sn ' + req.params.id.toUpperCase()).then(data => data);
 
-        await Olt.Conn(req.params.hostname, 'clear tcp line 66 \n clear tcp line 67 \n clear tcp line 68 \n clear tcp line 69 \n clear tcp line 70 \n clear tcp line 71').then(data => data);
           
-
         const cariSN = cekOlt.search('gpon-onu_1');
 
         if (cariSN < 0) {
@@ -55,9 +53,7 @@ exports.cariSN = async function (req, res, next) {
 
 
         let cekOnu = await Olt.Conn(req.params.hostname, 'show gpon onu detail-info ' + pon + '\n show running-config interface ' + pon).then(data => data);
-        await Olt.Conn(req.params.hostname, 'clear tcp line 66 \n clear tcp line 67 \n clear tcp line 68 \n clear tcp line 69 \n clear tcp line 70 \n clear tcp line 71').then(data => data);
-        
-
+      
 
         const cariPhaseState = cekOnu.search('Phase state: ');
         const cariConfigState = cekOnu.search('Config state: ');
@@ -114,8 +110,7 @@ exports.cariSN = async function (req, res, next) {
             const parseEquip = cekEquip.slice(cariAwalkEquip + 46, cariAkhirEquip -3).replace(/(\r\n|\n|\r)/gm, ':')
             const toJsonEquip = parseEquip.split(':', 200)
        
-            await Olt.Conn(req.params.hostname, 'clear tcp line 66 \n clear tcp line 67 \n clear tcp line 68 \n clear tcp line 69 \n clear tcp line 70 \n clear tcp line 71').then(data => data);
-       
+          
 
             remote = {
                 'distance':Distance,
@@ -147,7 +142,7 @@ exports.cariSN = async function (req, res, next) {
             remote = null;
         }
 
-
+         await Olt.Clear(req.params.hostname).then(data => data);
 
         let data = {
             'pon': pon,
