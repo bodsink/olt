@@ -33,7 +33,7 @@ class Olt {
     
     
             await connection.connect(params);
-           return  await connection.send(id);
+            return  await connection.shell(id);
 
         }
         catch (error) {
