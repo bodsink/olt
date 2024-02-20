@@ -24,7 +24,7 @@ fs.readdirSync(stages_path).forEach(function (file) {
 });
 
 
-const stage = new Stage([Stages.onuInfo, Stages.addPaket, Stages.pelangganReg]);
+const stage = new Stage([Stages.onuInfo, Stages.addPaket, Stages.pelangganReg, Stages.State]);
 const bot = new Telegraf(process.env.bot);
 bot.use(session());
 bot.use(stage.middleware());
@@ -34,7 +34,7 @@ bot.use(stage.middleware());
 
 bot.command('/addpaket', async (ctx) => {
     try {
-        if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080') {
+        if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080' || ctx.chat.id == '351111110') {
             ctx.scene.enter('addPaket')
         } else {
             ctx.reply('<b>Hanya Bisa diakses Dari Group!</b>', {
@@ -51,8 +51,25 @@ bot.command('/addpaket', async (ctx) => {
 
 bot.command('/pelreg', async (ctx) => {
     try {
-        if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080') {
+        if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080' || ctx.chat.id == '351111110') {
             ctx.scene.enter('pelangganReg')
+        } else {
+            ctx.reply('<b>Hanya Bisa diakses Dari Group!</b>', {
+                parse_mode: "HTML"
+            });
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
+
+});
+
+
+bot.command('/gponstate', async (ctx) => {
+    try {
+        if (ctx.chat.id == process.env.group || ctx.chat.id == '493223080' || ctx.chat.id == '351111110') {
+            ctx.scene.enter('State')
         } else {
             ctx.reply('<b>Hanya Bisa diakses Dari Group!</b>', {
                 parse_mode: "HTML"

@@ -1,4 +1,6 @@
 const createError = require('http-errors');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 const { Telnet } = require('telnet-client');
 
 const { OLT } = require('../Models/Model.Infra');
@@ -38,7 +40,34 @@ class Olt {
         }
         catch (error) {
             throw new Error(error)
-        
+
+        }
+    }
+
+    State = async (hostname) => {
+        try {
+          
+            let olt = await OLT.findOne({
+                hostname: hostname
+            }).then(data => data);
+
+            if (!olt) {
+                throw new Error('Olt tidak ditemukan')
+            }
+
+            let { stdout, stderr } = await exec("./Telnet/State.sh " +  olt.ip + ' '  + olt.telnet_port + ' ' + olt.telnet_user + ' ' + olt.telnet_pass  );
+            if (stderr) {
+                return stderr
+            }
+
+            if (stdout) {
+                return stdout
+            }
+
+        }
+        catch (error) {
+            throw new Error(error)
+
         }
     }
 
@@ -74,7 +103,7 @@ class Olt {
         }
         catch (error) {
             throw new Error(error)
-        
+
         }
     }
 

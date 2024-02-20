@@ -168,156 +168,6 @@ exports.cariSN = async function (req, res, next) {
 }
 
 
-// exports.cariSN = async function (req, res, next) {
-//     try {
-
-//         let cekOlt = await Olt.Conn(req.params.hostname, 'show gpon onu by sn ' + req.params.id.toUpperCase()).then(data => data);
-
-//         if(cekOlt){
-//            let clear = await Olt.Conn(req.params.hostname, 'clear tcp line 66 \n clear tcp line 67 \n clear tcp line 68 \n clear tcp line 69 \n clear tcp line 70 \n clear tcp line 71').then(data => data);
-
-
-//            let sesi = await Olt.Conn(req.params.hostname, 'show users').then(data => data);
-
-
-//             console.log(sesi)
-//             console.log(c)
-//         }
-
-
-//     //     const cariSN = cekOlt.search('gpon-onu_1');
-
-//     //     if (cariSN < 0) {
-//     //         return next(
-//     //             createError(404, 'Onu ' + req.params.id.toUpperCase() + ' tidak ditemukan!'));
-//     //     }
-
-//     //     const pon = cekOlt.slice(cariSN).replace(/(\r\n|\n|\r)/gm, '').replace('ZXAN#', '')
-
-
-//     //     let cekOnu = await Olt.Conn(req.params.hostname, 'show gpon onu detail-info ' + pon + '\n show running-config interface ' + pon).then(data => data);
-
-
-
-//     //     const cariPhaseState = cekOnu.search('Phase state: ');
-//     //     const cariConfigState = cekOnu.search('Config state: ');
-//     //     const cariAdminStat = cekOnu.search('Admin state: ');
-//     //     const cariNama = cekOnu.search('Name: ');
-//     //     const cariType = cekOnu.search('Type: ');
-//     //     const cariDesc = cekOnu.search('Description: ');
-//     //     const cariVport = cekOnu.search('Vport mode: ');
-
-//     //     const parseAdminStatus = cekOnu.slice(cariAdminStat + 14, cariAdminStat + 30).replace(/\s/g, '').trimStart();
-//     //     const parseNama = cekOnu.slice(cariNama + 14, cariType).trimStart().replace(/(\r\n|\n|\r)/gm, '').trimStart().replace(/\s+$/, '');
-//     //     const parseDesc = cekOnu.slice(cariDesc + 14, cariVport).trimStart().replace(/(\r\n|\n|\r)/gm, '').trimStart().replace(/\s+$/, '');
-//     //     const parseState = cekOnu.slice(cariPhaseState + 14, cariConfigState).trimStart().replace(/(\r\n|\n|\r)/gm, '').trimStart().replace(/\s+$/, '');
-
-
-//     //     const Adminstatus = parseAdminStatus
-//     //     const nama = parseNama
-//     //     const Description = parseDesc
-//     //     const State = parseState
-
-//     //     let stat;
-//     //     let remote;
-
-//     //     switch (State) {
-//     //         case 'DyingGasp':
-//     //             stat = 'Power Off';
-//     //             break;
-//     //         case 'working':
-//     //             stat = 'Online';
-//     //             break;
-//     //         case 'OffLine':
-//     //             stat = 'Offline';
-//     //             break;
-//     //         case 'LOS':
-//     //             stat = 'Los';
-//     //             break;
-//     //     }
-
-//     //     if(stat === 'Online'){
-//     //         let cekDistance =  await Olt.Conn(req.params.hostname, 'show gpon onu distance ' + pon).then(data => data);
-//     //         const cari= cekOnu.search('Distance(m)');
-//     //         const parse = cekDistance.slice(cari + 130).replace(/(\r\n|\n|\r)/gm, '').replace('ZXAN#', '').replace(/\s/g, '').trimStart();
-//     //         const Distance = parse / 1
-
-//     //         let cekRemoteOnu =  await Olt.Conn(req.params.hostname, 'show gpon remote-onu interface pon ' + pon).then(data => data);
-//     //         const cariAwal = cekRemoteOnu.search('show gpon remote-onu interface pon');
-//     //         const cariAkhir = cekRemoteOnu.search('ZXAN#');
-//     //         const parseRedaman = cekRemoteOnu.slice(cariAwal + 51, cariAkhir -4).replace(/(\r\n|\n|\r)/gm, ':')
-//     //         const toJson = parseRedaman.split(':', 200)
-
-//     //         let cekEquip=  await Olt.Conn(req.params.hostname, 'show gpon remote-onu equip ' + pon).then(data => data);
-//     //         const cariAwalkEquip = cekEquip.search('show gpon remote-onu interface pon');
-//     //         const cariAkhirEquip = cekEquip.search('ZXAN#');
-//     //         const parseEquip = cekEquip.slice(cariAwalkEquip + 46, cariAkhirEquip -3).replace(/(\r\n|\n|\r)/gm, ':')
-//     //         const toJsonEquip = parseEquip.split(':', 200)
-
-//     //         remote = {
-//     //             'distance':Distance,
-//     //             'temperatur': toJson[38].replace(/\s/g, ''),
-//     //             'bias': toJson[36].replace(/\s/g, ''),
-//     //             'voltage': toJson[34].replace(/\s/g, ''),
-//     //             'rx': toJson[20].replace(/\s/g, ''),
-//     //             'tx': toJson[26].replace(/\s/g, ''),
-//     //             'vendor_id':  toJsonEquip[1].replace(/\s/g, ''),
-//     //             'version':  toJsonEquip[3].replace(/\s/g, ''),
-//     //             'sn':  toJsonEquip[5].replace(/\s/g, ''),
-//     //             'id':  toJsonEquip[23].replace(/\s/g, ''),
-//     //             'model':  toJsonEquip[29].replace(/\s/g, ''),
-
-//     //         }
-
-
-//     //     }
-
-//     //     if(stat === 'Power Off'){
-//     //         remote = null;
-//     //     }
-
-//     //     if(stat === 'Los'){
-//     //         remote = null;
-//     //     }
-
-//     //     if(stat === 'Offline'){
-//     //         remote = null;
-//     //     }
-
-
-
-//     //     let data = {
-//     //         'pon': pon,
-//     //         'admin': Adminstatus,
-//     //         'nama': nama,
-//     //         'alamat': Description,
-//     //         'state': stat,
-//     //         remote
-//     //     }
-
-//     //     return res.status(200).send({
-//     //         data: data
-//     //     })
-
-//     //   console.log(data)
-
-
-
-
-
-
-
-//     } catch (error) {
-//         console.log(error)
-//         return next(
-//             createError(500, error));
-//     }
-
-
-// }
-
-
-
 exports.AddOnu = async function (req, res, next) {
     try {
 
@@ -452,6 +302,31 @@ exports.AddOnu = async function (req, res, next) {
 
             }
         })
+    } catch (error) {
+        console.log(error)
+        return next(
+            createError(500, error));
+    }
+}
+
+
+exports.State = async function (req, res, next) {
+    try {
+
+        let cek = await Olt.State(req.params.hostname).then(data=>data);
+ 
+        let a = cek.search('ONU Number: ');
+        let parse = cek.slice(a + 11, a + 22).replace(/\s/g, '').trimStart();
+        let total = parse.split('/', 2)
+       
+        return res.status(200).send({
+            data: {
+                offline: total[1] / 1 - total[0] / 1,
+                total: total[1] / 1
+            }
+        })
+
+
     } catch (error) {
         console.log(error)
         return next(

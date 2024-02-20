@@ -77,6 +77,7 @@ app.post('/olt', Controllers.Root.CekToken, Controllers.Infra.postOlt);
 app.post('/olt/:hostname/onu', Controllers.Root.CekToken, Controllers.Olt.AddOnu);
 app.get('/olt/:hostname/onu/uncfg/:id', Controllers.Root.CekToken, Controllers.Olt.Uncfg);
 app.get('/olt/:hostname/onu/:id', Controllers.Root.CekToken, Controllers.Olt.cariSN);
+app.get('/olt/:hostname/state', Controllers.Root.CekToken, Controllers.Olt.State);
 
 //app.post('/olt/:hostname/gpon/profil', Controllers.Root.CekToken, Controllers.Olt.ProfilOnu);
 
