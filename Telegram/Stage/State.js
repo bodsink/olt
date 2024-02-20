@@ -20,8 +20,7 @@ const State = new WizardScene(
                     parse_mode: "HTML"
                 });
                 let cek = await API.GponState().then(data=>data);
-                console.log(cek)
-
+              
                 if (cek.response) {
                     ctx.reply('<b>' + cek.response.data.pesan + '</b>', {
                         parse_mode: "HTML"
